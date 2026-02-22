@@ -17,7 +17,7 @@ defmodule Lanyard.Api.Util do
   @spec respond(Plug.Conn.t(), {:ok, any}) :: Plug.Conn.t()
   def respond(conn, {:ok, data}) do
     conn
-    |> put_resp_content_type("application/json")
+    |> put_resp_content_type("application/json", "utf-8")
     |> send_resp(200, Jason.encode!(%{success: true, data: data}))
   end
 
@@ -29,7 +29,7 @@ defmodule Lanyard.Api.Util do
   @spec respond(Plug.Conn.t(), {:error, integer, atom, binary}) :: Plug.Conn.t()
   def respond(conn, {:error, http_code, code, reason}) do
     conn
-    |> put_resp_content_type("application/json")
+    |> put_resp_content_type("application/json", "utf-8")
     |> send_resp(
       http_code,
       Jason.encode!(%{
